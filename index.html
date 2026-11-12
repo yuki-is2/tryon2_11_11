@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D試着コーデアプリ</title>
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+<main>
+  <section id="viewer">
+    <div id="canvas-wrap"></div>
+    <div class="bar">
+      <button id="btn-rotate">360°自動回転 ON/OFF</button>
+      <button id="btn-clear">服を脱がせる</button>
+    </div>
+    <div id="fit-info" class="fit"></div>
+    <div class="body-settings">
+      <label>身長 <input type="range" id="s-height" min="0.85" max="1.15" step="0.01" value="1"></label>
+      <label>体格 <input type="range" id="s-width" min="0.8" max="1.3" step="0.01" value="1"></label>
+    </div>
+  </section>
+
+  <aside>
+    <h2>① 服を登録（前・後ろの2枚）</h2>
+    <div class="card">
+      <input id="f-name" placeholder="服の名前（例：白Tシャツ）">
+      <select id="f-cat"><option value="top">トップス</option><option value="bottom">ボトムス</option></select>
+      <label><span id="l-width">身幅</span>(cm) <input type="number" id="f-width" value="52" min="20" max="90"></label>
+      <label><span id="l-length">着丈</span>(cm) <input type="number" id="f-length" value="68" min="20" max="130"></label>
+      <label>前から（平置き・無地の背景） <input type="file" id="f-front" accept="image/*"></label>
+      <label>後ろから（同じ条件） <input type="file" id="f-back" accept="image/*"></label>
+      <label>背景除去のしきい値 <input type="range" id="f-tol" min="15" max="90" value="40"></label>
+      <div class="previews"><div id="prev-front"></div><div id="prev-back"></div></div>
+      <button id="btn-add">登録する</button>
+    </div>
+
+    <h2>② 服の一覧（タップで着せる）</h2>
+    <h3>トップス</h3><div id="list-top" class="grid"></div>
+    <h3>ボトムス</h3><div id="list-bottom" class="grid"></div>
+
+    <h2>③ コーデを保存</h2>
+    <div class="card">
+      <input id="o-name" placeholder="コーデ名（例：通勤用）">
+      <button id="btn-save-outfit">今の着せ替えを保存</button>
+    </div>
+    <div id="list-outfit"></div>
+  </aside>
+</main>
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
